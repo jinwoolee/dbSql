@@ -94,6 +94,7 @@ SELECT empno, ename, sal, sal*12 as year_sal
 FROM emp
 ORDER BY 2;
 
+<<<<<<< HEAD
 --orderby1
 SELECT *
 FROM dept
@@ -213,5 +214,7 @@ FROM dual;
 
 
 
+=======
+>>>>>>> 69786431e6ffbc252badfe0653cc1423b9d5940e
 
 
