@@ -195,7 +195,7 @@ SELECT MAX(sal) max_sal, MIN(sal) min_sal,
        COUNT(*) count_all
 FROM emp;
 
---grp1
+--grp2
 SELECT deptno, MAX(sal) max_sal, MIN(sal) min_sal,
        ROUND(AVG(sal), 2) avg_sal,
        SUM(sal) sum_sal,
