@@ -140,3 +140,75 @@ SELECT b.pid, b.pnm, 1 cid, c.cnm, nvl(a.day, 0) day, nvl(a.cnt, 0) cnt
     AND 1 = c.cid;
 
 
+--crossjoin1
+SELECT cid, cnm, pid, pnm
+FROM customer, product;
+
+
+
+--subquery : main쿼리에 속하는 부분 쿼리
+--사용되는 위치 : 
+-- SELECT - scalar subquery (하나의 행과, 하나의 컬럼만 조회되는 쿼리이어야 한다)
+-- FROM - inline view 
+-- WHERE - subquery
+
+-- SCALAR subquery 
+SELECT empno, ename, SYSDATE now/*현재날짜*/
+FROM emp;
+
+SELECT empno, ename, (SELECT SYSDATE FROM dual) now
+FROM emp;
+
+
+SELECT deptno   --20
+FROM emp
+WHERE ename = 'SMITH';
+
+SELECT *
+FROM emp
+WHERE deptno = 20;
+
+
+SELECT deptno   --20
+FROM emp
+WHERE ename = 'SMITH';
+
+SELECT *
+FROM emp
+WHERE deptno = (SELECT deptno   --20
+                FROM emp
+                WHERE ename = 'SMITH');
+                
+
+--sub1
+SELECT AVG(sal)  --2073.21
+FROM emp;
+
+SELECT count(*)
+FROM emp 
+WHERE sal > (SELECT AVG(sal)  --2073.21
+             FROM emp);
+--sub2             
+SELECT *
+FROM emp 
+WHERE sal > (SELECT AVG(sal) --2073.21
+             FROM emp);             
+
+--sub3
+--SMITH, WARD가 근무하는 부서 조회
+SELECT deptno --20, 30
+FROM emp
+WHERE ENAME IN ('SMITH', 'WARD');
+
+SELECT *
+FROM emp
+WHERE deptno IN (20, 30);
+
+SELECT *
+FROM emp
+WHERE deptno IN(
+            SELECT deptno
+            FROM emp
+            WHERE ENAME IN ('SMITH', 'WARD'));
+
+
