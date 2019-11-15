@@ -250,7 +250,7 @@ Predicate Information (identified by operation id):
        
 
 
---idx1
+--idx1, 2
 --dept_test 테이블 생성
 CREATE TABLE dept_test AS
 SELECT *
@@ -259,13 +259,19 @@ WHERE 1=1;
 
 --deptno 컬럼 기준으로 unique 인덱스 생성
 CREATE UNIQUE INDEX idx_u_dept_test_01 ON dept_test (deptno);
+DROP INDEX idx_u_dept_test_01;
 
 --dname 컬럼 기준으로 non-unique 인덱스 생성
 CREATE INDEX idx_dept_test_02 ON dept_test(dname);
+DROP INDEX idx_dept_test_02;
 
 --deptno, dname 컬럼을 기준으로 non-unique 인덱스생성
 CREATE INDEX idx_dept_test_03 ON dept_test(deptno, dname);
+DROP INDEX idx_dept_test_03;
 
+SELECT deptno, sal, empno
+FROM emp
+ORDER BY deptno, sal, empno;
 
 
 
