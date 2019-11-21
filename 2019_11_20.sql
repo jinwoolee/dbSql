@@ -206,11 +206,10 @@ WHERE sal <
 --2.emp.empno, emp.ename, emp.sal, emp_test.sal, 
 --  해당사원(emp테이블 기준)이 속한 부서의 급여평균
 
-
-
-
 SELECT emp.empno, emp.ename, emp.sal, emp_test.sal, emp.deptno, a.sal_avg
-FROM emp, emp_test,(SELECT deptno, ROUND(AVG(sal), 2) sal_avg FROM emp GROUP BY deptno) a
+FROM emp, emp_test,(SELECT deptno, ROUND(AVG(sal), 2) sal_avg
+                    FROM emp
+                    GROUP BY deptno) a
 WHERE emp.empno = emp_test.empno
 AND emp.deptno = a.deptno;
 
