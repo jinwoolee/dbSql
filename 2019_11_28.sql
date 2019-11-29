@@ -87,11 +87,54 @@ FROM emp e JOIN emp m ON ( e.mgr = m.empno)
 
 --직원의 이름과, 해당 직원의 관리자 이름을 조회한다
 --단 직원의 사번이 7369~7698인 직원을 대상으로 조회
+SELECT s.ename, m.ename
+FROM emp s, emp m
+WHERE s.empno BETWEEN 7369 AND 7698
+AND s.mgr = m.empno;
+
+--ANSI 
+SELECT s.ename, m.ename
+FROM emp s JOIN emp m ON( s.mgr = m.empno )
+WHERE s.empno BETWEEN 7369 AND 7698;
 
 
+--NON-EQUI JOIN : 조인 조건이 =(equal)이 아닌 JOIN
+-- != , BETWEEN AND
+
+SELECT *
+FROM salgrade;
+
+SELECT empno, ename, sal, grade /* 급여 grade */
+FROM emp, salgrade
+WHERE emp.sal BETWEEN salgrade.losal AND salgrade.hisal;
+
+WHERE emp.sal >= salgrade.losal
+AND emp.sal <= salgrade.hisal;
 
 
+SELECT empno, ename, sal, grade /* 급여 grade */
+FROM emp JOIN salgrade ON emp.sal BETWEEN salgrade.losal AND salgrade.hisal ;
 
+
+--join0
+SELECT empno, ename, emp.deptno, dname
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+ORDER BY emp.deptno;
+
+--join0_1
+SELECT empno, ename, emp.deptno, dname
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND (emp.deptno =10 OR emp.deptno =30)
+--AND emp.deptno IN (10, 30)
+ORDER BY emp.deptno;
+
+--join0_2
+SELECT empno, ename, emp.deptno, dname
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND emp.sal > 2500;
 
 
 
