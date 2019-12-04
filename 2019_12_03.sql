@@ -96,14 +96,6 @@ WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
 ORDER BY 도시발전지수 DESC);
 
-SELECT *
-FROM TAX
-ORDER BY SAL DESC;
-
-
-
-
-
 
 --하나의 SQL로 작성하지 마세요
 --fastfood 테이블을 이용하여 여러번의 sql 실행 결과를
@@ -113,6 +105,11 @@ ORDER BY SAL DESC;
 --대전시 서구
 --대전시 중구
 --대전시 대덕구
+
+
+--1 서울 중구 5.8  1 서울 강남구 70.3
+
+
 
 
 
