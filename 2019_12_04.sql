@@ -223,7 +223,7 @@ SELECT *
 FROM emp m
 WHERE sal > (SELECT AVG(sal)
              FROM emp
-             WHERE deptno = deptno);
+             WHERE deptno = m.deptno);
              
 SELECT deptno, ROUND(AVG(sal), 2)
 FROM emp             
