@@ -176,9 +176,35 @@ CONNECT BY PRIOR deptcd = p_deptcd ;
 -- CONNECT_BY_ROOT(col) 가장 최상위 row의 col 정보 값 조회
 -- SYS_CONNECT_BY_PATH(col, 구분자) : 최상위 row에서 현재 로우까지 col값을
 -- 구분자로 연결해준 문자열 (EX : XX회사-디자인부디자인팀)
+-- CONNECT_BY_ISLEAF : 해당 ROW가 마지막 노드인지(leaf Node)
+-- leaf node : 1, node : 0
 SELECT deptcd, LPAD(' ' , 4*(LEVEL-1)) || deptnm,
        CONNECT_BY_ROOT(deptnm) c_root,
-       LTRIM(SYS_CONNECT_BY_PATH(deptnm, '-'), '-') sys_path
+       LTRIM(SYS_CONNECT_BY_PATH(deptnm, '-'), '-') sys_path,
+       CONNECT_BY_ISLEAF isleaf
 FROM dept_h
 START WITH deptcd='dept0'
 CONNECT BY PRIOR deptcd = p_deptcd ;
+
+SELECT *
+FROM board_test;
+
+-- h_6
+SELECT seq, LPAD(' ', 4*(LEVEL-1)) || title
+FROM board_test
+START WITH parent_seq IS NULL
+CONNECT BY PRIOR seq = parent_seq;
+
+-- h_7
+SELECT seq, LPAD(' ', 4*(LEVEL-1)) || title
+FROM board_test
+START WITH parent_seq IS NULL
+CONNECT BY PRIOR seq = parent_seq
+ORDER BY seq DESC;
+
+-- h_8
+SELECT seq, LPAD(' ', 4*(LEVEL-1)) || title
+FROM board_test
+START WITH parent_seq IS NULL
+CONNECT BY PRIOR seq = parent_seq
+ORDER SIBLINGS BY seq DESC;
