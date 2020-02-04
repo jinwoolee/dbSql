@@ -282,6 +282,25 @@ WHERE emp.deptno = dept_sal.deptno
 AND emp.sal > dept_sal.avg_sal;
 
 
+sub4;
+데이터 추가;
+INSERT INTO dept VALUES (99, 'ddit', 'daejeon');
+
+DELETE dept
+WHERE deptno = 99;
+
+SELECT *
+FROM dept;
+
+ROLLBACK; 트랜잭션 취소
+COMMIT;   트랜잭션 확정
+
+
+
+
+
+
+
 
 
 
