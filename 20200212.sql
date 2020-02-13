@@ -206,6 +206,29 @@ DROP INDEX idx_u_dept_test2_02;
 DROP INDEX idx_u_dept_test2_03;
     
 
+access pattern
+
+ename(=)
+deptno(=), empno(LIKE 직원번호%) ==> empno, deptno
+deptno, sal, mgr, hiredate
+
+empno
+ename
+deptno, empno ==> empno, deptno
+deptno, sal
+deptno, mgr
+deptno, hiredate;
+
+
+
+
+
+
+
+
+
+
+
 IDX3;
 EMP INDEX :
 1.
