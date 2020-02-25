@@ -159,9 +159,56 @@ BEGIN
 END;
 /
         
+인터페이스를 이용하여 객체를 생성 가능한가?;
+
+
+FOR LOOP에서 커서를 인라인 형태로 작성
+FOR 레코드이름 IN 커서이름
+==> 
+FOR 레코드이름 IN (서브쿼리);
+
+DECLARE 
+BEGIN
+    FOR rec IN (SELECT deptno, dname FROM dept) LOOP
+        DBMS_OUTPUT.PUT_LINE(rec.deptno || ' : ' || rec.dname); 
+    END LOOP;
+END;
+/
 
 
 
+ SELECT *
+ FROM dt;
+
+CREATE OR REPLACE PROCEDURE avgdt IS
+    TYPE dt_tab IS TABLE OF dt%ROWTYPE INDEX BY BINARY_INTEGER;
+    v_dt_tab dt_tab;
+    
+    v_diff_sum NUMBER := 0;
+BEGIN
+    SELECT * BULK COLLECT INTO v_dt_tab
+    FROM dt;
+    
+    --DT 테이블에는 8행이 있는데 1~7번행 까지만 LOOP를 시행
+    FOR i IN 1..v_dt_tab.COUNT-1 LOOP
+        v_diff_sum := v_diff_sum + v_dt_tab(i).dt - v_dt_tab(i+1).dt;
+    END LOOP;
+    
+    DBMS_OUTPUT.PUT_LINE(v_diff_sum / (v_dt_tab.COUNT-1));
+    
+END;
+/
+EXEC AVGDT;
+
+
+SELECT AVG(diff)
+FROM 
+(SELECT dt - LEAD(dt) OVER (ORDER BY dt DESC) diff
+ FROM dt);
+
+
+SELECT (MAX(dt) - MIN(dt)) / (COUNT(dt) - 1)
+FROM dt;
 
 
 
